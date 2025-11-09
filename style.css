@@ -42,8 +42,17 @@ body {
   display: flex;
 }
 
+.search-section input[type="search"] {
+  flex: 1 1 auto;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  margin-right: 12px;
+}
+
 .search-section select {
-  width: 100%;
+  flex: 0 0 280px;
   padding: 16px;
   font-size: 18px;
   border: 2px solid #000;
@@ -51,6 +60,19 @@ body {
   cursor: pointer;
   background-color: white;
   font-weight: 500;
+}
+
+/* When the select has the default "All categories" selected we add a class
+   to make the control appear black with white text for emphasis. */
+.search-section select.all-selected {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Try to make the placeholder option readable when the select is styled. */
+.search-section select.all-selected option[value=""] {
+  color: #fff;
 }
 
 .search-section select:focus {
@@ -79,6 +101,79 @@ body {
   overflow-y: auto;
   background: #fafafa;
   margin-bottom: 20px;
+}
+
+/* Chat bubble styles: assistant on left, user on right */
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.msg {
+  max-width: 100%;
+  padding: 0; /* inner bubble handles padding */
+  line-height: 1.4;
+  word-break: break-word;
+  display: left;
+}
+
+/* Row that contains avatar + bubble */
+.msg-row {
+  display: left;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.user-msg .msg-row {
+  flex-direction: row-reverse; /* avatar on right for user */
+}
+
+/* Avatar circle */
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+}
+
+.assistant-msg .avatar { background: #222; }
+.user-msg .avatar { background: #000; }
+
+/* Bubble and meta wrapper */
+.bubble-and-meta { display: flex; flex-direction: column; gap: 6px; }
+
+.bubble {
+  padding: 12px 14px;
+  border-radius: 12px;
+  max-width: 82%;
+}
+
+.assistant-msg .bubble {
+  background: #fff;
+  color: #111;
+  border: 1px solid #e6e6e6;
+}
+
+.user-msg .bubble {
+  background: #111;
+  color: #fff;
+  border: 1px solid rgba(0,0,0,0.6);
+}
+
+.meta { display:flex; gap:8px; align-items:center; font-size:12px; color:#666; }
+.timestamp { color:#888; }
+.delivery-status { color:#666; font-weight:600; }
+
+/* Small responsive tweaks */
+@media (max-width: 600px) {
+  .msg { max-width: 100%; }
+  .search-section select { flex-basis: 180px; }
 }
 
 /* placeholder message */
@@ -188,11 +283,47 @@ body {
   min-height: 160px;
 }
 
+.product-card.selected {
+  border-color: #000;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
 .product-card img {
   width: 110px;
   height: 110px;
   object-fit: contain;
   flex-shrink: 0;
+}
+
+.product-desc {
+  display: none;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #ffffff;
+  background: #FF003B;
+  padding: 8px;
+  border-radius: 9px;
+  border: 1px solid #eee;
+}
+
+.product-desc.open {
+  display: block;
+}
+
+.desc-toggle {
+  background: rgb(0, 0, 0);
+  color:white;
+  border: 2px solid #000000;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.desc-toggle:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
 }
 
 .product-card .product-info {
@@ -230,6 +361,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.selected-item {
+  border: 1px solid #e6e6e6;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fff;
 }
 
 .generate-btn {
